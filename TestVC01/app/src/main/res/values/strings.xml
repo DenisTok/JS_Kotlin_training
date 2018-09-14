@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TestVC01</string>
+    <string name="l_reg">Регистрация</string>
+    <string name="l_Email">Email</string>
+    <string name="l_password">Пароль</string>
+    <string name="l_re_password">Повторите пароль</string>
+    <string name="l_login">Войти</string>
+    <string name="l_next">Далее</string>
+    <string name="l_SecName">Фамилия</string>
+    <string name="l_Name">Имя</string>
+    <string name="l_MidName">Отчество</string>
+    <string name="l_phone">Телефон</string>
+    <string name="l_Size_of_clother">Размер одежды</string>
+    <string name="l_more_inf">Доп иформация</string>
+    <string name="l_reg_in">Зарегистрироваться</string>
+</resources>
