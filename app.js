@@ -8,10 +8,10 @@ const reg = require('./routes/reg');
 
 const login = require('./routes/login');
 
-const getevents = require('./routes/events/getevents');
+const getevents = require('./routes/getevents');
 
-const reguinfo = require('./routes/uinfo/reguinfo');
-const getuinfo = require('./routes/uinfo/getuinfo');
+const reguinfo = require('./routes/reguinfo');
+const getuinfo = require('./routes/getuinfo');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

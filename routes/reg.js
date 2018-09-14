@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sha256 = require('js-sha256');
-const connection = require('./db').connection;
+const connection = require('../db').connection;
 const tsolt = 'a618f2aa1e7dfb9de83f8cc82284858debbb900c5a45ef3bdf0729506f7735ec';
 
 function validateEmail(email) {
