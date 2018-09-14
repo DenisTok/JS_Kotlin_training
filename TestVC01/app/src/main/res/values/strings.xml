@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestVC01</string>
+    <string name="app_name">Volunteer</string>
     <string name="l_reg">Регистрация</string>
     <string name="l_Email">Email</string>
     <string name="l_password">Пароль</string>
