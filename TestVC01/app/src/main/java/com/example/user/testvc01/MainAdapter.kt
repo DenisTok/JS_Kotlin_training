@@ -1,8 +1,6 @@
 package com.example.user.testvc01
 
-import android.app.usage.UsageEvents
 import android.content.Intent
-import android.provider.CalendarContract.Instances.EVENT_ID
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
