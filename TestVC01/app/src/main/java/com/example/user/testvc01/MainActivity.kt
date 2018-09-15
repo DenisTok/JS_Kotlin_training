@@ -1,5 +1,6 @@
 package com.example.user.testvc01
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -10,16 +11,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import com.example.user.testvc01.R.id.fab
-import com.example.user.testvc01.R.id.toolbar
 import com.github.kittinunf.fuel.httpGet
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.github.kittinunf.result.Result
+import kotlinx.android.synthetic.main.content_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
-            httpGet()
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -38,8 +39,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        // SwipeRefreshLayout
+        swipeRefrL.setOnRefreshListener {
+            onRefresh()
+        }
+        swipeRefrL.setColorSchemeColors( Color.RED, Color.GREEN, Color.BLUE, Color.CYAN)
+
+
     }
 
+    private fun onRefresh() {
+        // Fetching data from server
+        httpGet()
+        swipeRefrL.isRefreshing = false
+
+    }
     private fun httpGet() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView_main)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -51,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             when (result) {
                 is Result.Failure -> {
                     val ex = result.getException()
+
                 }
                 is Result.Success -> {
                     val data = result.get()
@@ -60,9 +76,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     println("=== List from JSON ===")
                     var eventList: List<Event> = gson.fromJson(data.trimMargin(), object : TypeToken<List<Event>>() {}.type)
                     eventList.forEach { println(it) }
+
                     runOnUiThread {
                         recyclerView.adapter = MainAdapter(eventList)
                     }
+
                 }
             }
         }
