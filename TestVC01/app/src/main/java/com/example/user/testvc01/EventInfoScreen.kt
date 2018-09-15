@@ -21,3 +21,4 @@ class EventInfoScreen : AppCompatActivity() {
         tPoints.text = intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_POINTS)
     }
 }
+

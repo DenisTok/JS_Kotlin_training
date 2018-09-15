@@ -30,7 +30,7 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
 //        val videoTitle = videoTitles.get(position)
         val event = events[position]
         holder.view.lEventName?.text = event.ename
-        holder.view.tWhen?.text = event.edate
+        holder.view.tWhen?.text = "Дата: %s".format(event.edate)
         holder.view.tWhere?.text = event.eplace
         holder.view.tPeople?.text = event.epeople
         holder.view.tPoints?.text = event.epoints

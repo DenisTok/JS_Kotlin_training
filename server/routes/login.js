@@ -23,8 +23,7 @@ router.post('/', async (req, res) => { //логин post
             try {
                 let rows = connection.oneOrNone(
                     `SELECT idusers, utoken, urole, uemail FROM users WHERE utoken = $1;`,
-                    [token]);
-                    console.log(await rows);
+                    [token]);                
                 res.send(await rows);
             } catch (err) {
                 console.error(err);

@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.content_main.*
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        swipeRefrL.isRefreshing = true
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -49,12 +52,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    override fun onStart() {
+        httpGet()
+        swipeRefrL.isRefreshing = false
+        super.onStart()
+    }
     private fun onRefresh() {
         // Fetching data from server
         httpGet()
         swipeRefrL.isRefreshing = false
 
     }
+
+
     private fun httpGet() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView_main)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -90,8 +100,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            moveTaskToBack(true)
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

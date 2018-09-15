@@ -28,8 +28,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginScreen" />
         </activity>
-        <activity android:name=".UserInformation" />
-        <activity android:name=".MainScreen" />
+        <activity android:name=".UserInformation"
+                    android:label="Информация"/>
+        <activity android:name=".MainScreen"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

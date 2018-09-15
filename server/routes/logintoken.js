@@ -6,10 +6,8 @@ const tsolt = 'a618f2aa1e7dfb9de83f8cc82284858debbb900c5a45ef3bdf0729506f7735ec'
 
 router.get('/', (req, res) => res.send('Привет, это API!'));
 
-async function tokenExist(uToken) {
-    console.log(uToken.length)
-    if (uToken.length == 64) {
-        console.log("YES")
+async function tokenExist(uToken) {    
+    if (uToken.length == 64) {        
         try {
             let rows = connection.oneOrNone(
                 `SELECT idusers FROM users WHERE utoken = $1`,

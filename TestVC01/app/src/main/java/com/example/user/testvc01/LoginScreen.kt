@@ -28,15 +28,14 @@ class LoginScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
 
+        val sharedPref = getSharedPreferences("loginData",Context.MODE_PRIVATE)
+        val idusers = sharedPref.getInt("idusers",1)/////////// ИЗМЕНИТЬ НА НУЛИ ПЕРЕД РЕЛИЗОМ
+        val utoken = sharedPref.getString("utoken","d5164d32c2d67cd20216d99f25e76f16c1c435a3038d31bbe21b61179b5306c1")
+
         tEmail.afterTextChanged { tiEmail.error = null }
         tPass.afterTextChanged { tiPass.error = null }
 
 
-        val sharedPref = getSharedPreferences("loginData",Context.MODE_PRIVATE)
-        val idusers = sharedPref.getInt("idusers",0)
-        val utoken = sharedPref.getString("utoken","0")
-        Toast.makeText(this, idusers.toString()+"  "+utoken,
-                Toast.LENGTH_SHORT).show()
         login(idusers,utoken,"","")
         buLogin.setOnClickListener {
             subButton(it)
