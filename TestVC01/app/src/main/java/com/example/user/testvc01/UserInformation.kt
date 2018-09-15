@@ -166,7 +166,7 @@ class UserInformation : AppCompatActivity() {
     }
     fun toMainScreenForm(){
         // Create an Intent to start the UserInformation activity
-        val randomIntent = Intent(this, MainScreen::class.java)
+        val randomIntent = Intent(this, LoginScreen::class.java)
         // Start the new activity.
         startActivity(randomIntent)
     }

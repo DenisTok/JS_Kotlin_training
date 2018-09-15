@@ -49,7 +49,7 @@ class RegScreen : AppCompatActivity() {
     }
 
     fun isPasswordValid():Boolean {
-        return tPass.text.length > 8
+        return tPass.text.length > 7
     }
 
     fun isPasswordsTheSame():Boolean{
@@ -61,7 +61,7 @@ class RegScreen : AppCompatActivity() {
                 tiEmail.error = "Введите верный email"
             }
             !isPasswordValid() -> {
-                tiPass.error = "Введите пароль длинее 8 символов"
+                tiPass.error = "Введите пароль длинее 7 символов"
 
             }
             !isPasswordsTheSame() -> {
@@ -128,10 +128,11 @@ class RegScreen : AppCompatActivity() {
 
                             val sharedPref = getSharedPreferences("loginData" ,Context.MODE_PRIVATE)
                             with (sharedPref.edit()) {
-                                putString("idusers", jsonObj.getString("idusers"))
+                                putInt("idusers", jsonObj.getInt("idusers"))
                                 putString("utoken", jsonObj.getString("utoken"))
-                                putString("urole", "0")
-                                commit()
+                                putString("uemail", email)
+                                putInt("urole", 0)
+                                apply()
                             }
 
                             toUserInformationForm(jsonObj.getString("idusers"))
@@ -174,7 +175,7 @@ class RegScreen : AppCompatActivity() {
                     Toast.LENGTH_SHORT)
         }
     }
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

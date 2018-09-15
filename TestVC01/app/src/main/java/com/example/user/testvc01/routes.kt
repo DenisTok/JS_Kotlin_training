@@ -8,5 +8,6 @@ object routes {
      const val  GET_EVENTS:String = "/getevents"
      const val  LOGIN:String = "/login"
      const val  GET_UINFO:String = "/getuinfo"
+     const val  LOGINTOKEN:String = "/logintoken"
 
 }

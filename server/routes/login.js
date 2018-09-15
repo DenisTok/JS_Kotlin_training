@@ -15,27 +15,29 @@ router.get('/', (req, res) => res.send('Привет, это API!'));
 router.post('/', async (req, res) => { //логин post
     let errmes = "";
 
-    if (validateEmail(req.body.email)) {
+    if (validateEmail(req.body.uemail)) {
         try {
-            let pasHash = sha256(req.body.email + req.body.password + tsolt)
-            let token = sha256(req.body.email + pasHash + tsolt);
+            let pasHash = sha256(req.body.uemail + req.body.password + tsolt)
+            let token = sha256(req.body.uemail + pasHash + tsolt);
 
             try {
                 let rows = connection.oneOrNone(
-                    `SELECT idusers, utoken, urole FROM users WHERE utoken = $1;`,
+                    `SELECT idusers, utoken, urole, uemail FROM users WHERE utoken = $1;`,
                     [token]);
+                    console.log(await rows);
                 res.send(await rows);
             } catch (err) {
                 console.error(err);
+                res.sendStatus(400);
             }
         } catch (err) {
             console.error(err);
-            errmes += "[0]"//код ошибки 0 ошибка в конекте с таблицей
+            res.sendStatus(500); //код ошибки 0 ошибка в конекте с таблицей
+            
         }
     } else {
         is_user_exist = true;           //если не правильная то выключаем регистрацию - ставим что пользователь есть
-        errmes += "[1]";
-        res.send(errmes);                 //код ошибки 1 емаил не правильный        
+        res.sendStatus(406);                 //код ошибки 1 емаил не правильный        
     }
 });
 
