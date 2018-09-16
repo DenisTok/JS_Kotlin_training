@@ -1,10 +1,12 @@
 package com.example.user.testvc01
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
@@ -14,16 +16,20 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
-import com.example.user.testvc01.R.id.*
 import kotlinx.android.synthetic.main.activity_reg_screen.*
 import org.json.JSONObject
-import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.util.regex.Pattern
 import android.text.TextUtils
-
-
+import android.os.Build
+import android.support.v4.content.ContextCompat.startActivity
+import android.text.Html.fromHtml
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
+import com.example.user.testvc01.R.id.*
+import kotlinx.android.synthetic.main.activity_reg_screen.view.сhBoxxxx
+import kotlinx.android.synthetic.main.activity_reg_screen.view.*
 
 
 class RegScreen : AppCompatActivity() {
@@ -33,14 +39,46 @@ class RegScreen : AppCompatActivity() {
         setContentView(R.layout.activity_reg_screen)
         tEmail.afterTextChanged { tiEmail.error = null }
         tPass.afterTextChanged { tiPass.error = null }
+        сhBoxxxx.setOnCheckedChangeListener { _, _ -> tiCheced.error = null }
         tRePass.afterTextChanged {
             if(isPasswordsTheSame()) {
             tiRePass.error = null
         }
         }
 
+        сhBoxxxx.setOnClickListener { _ ->
+            if (сhBoxxxx.isChecked) {
+                val htmlstring: String = "Я прочел и согласен с <a href='http://bit.ly/2NJshMg'>политикой конфиденциальности.</a>"
+                val message = TextView(this)
+                message.text = fromHtml(htmlstring)
+                message.setPadding(30, 5, 0, 0)
+                message.movementMethod = LinkMovementMethod.getInstance()
+                AlertDialog.Builder(this)
+                        .setTitle("Политика Конфиденциальности")
+                        .setView(message)
+                        .setCancelable(false)
+                        .setNegativeButton(android.R.string.no) { _, _ ->
+                            сhBoxxxx.isChecked = false
+                        }
+                        .setPositiveButton(android.R.string.yes) { _, _ ->
+                            сhBoxxxx.isChecked = true
+                        }.create().show()
+            }
+        }
 
 
+
+    }
+
+
+
+    fun fromHtml(source: String): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION")
+            Html.fromHtml(source)
+        }
     }
 
     private fun isEmailValid(): Boolean {
@@ -68,6 +106,9 @@ class RegScreen : AppCompatActivity() {
                 tiRePass.error = "Пароли не совпадают"
 
             }
+            !сhBoxxxx.isChecked ->{
+                tiCheced.error = "Примите политику конфиденциальности"
+            }
             else ->{
                 Toast.makeText(this, "Регистрация",
                         Toast.LENGTH_LONG).show()
@@ -76,6 +117,7 @@ class RegScreen : AppCompatActivity() {
         }
 
     }
+
     fun tryToReg(view: View){
         val email = tEmail.text.toString()
         val password = tPass.text.toString()

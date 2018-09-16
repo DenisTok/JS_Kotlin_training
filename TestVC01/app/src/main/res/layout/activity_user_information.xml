@@ -125,12 +125,12 @@
 
                 <EditText
                     android:id="@+id/tInfo"
-                    android:layout_width="match_parent"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/l_more_inf"
-                    android:inputType="textPersonName" />
+                    android:inputType="textMultiLine" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -139,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:text="@string/l_reg_in" />
+
 
         </LinearLayout>
     </ScrollView>
