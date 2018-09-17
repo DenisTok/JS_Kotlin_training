@@ -32,10 +32,10 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
         holder.view.lEventName?.text = event.ename
         holder.view.tWhen?.text = "Дата: %s".format(event.edate)
         holder.view.tWhere?.text = event.eplace
-        holder.view.tPeople?.text = event.epeople
-        holder.view.tPoints?.text = event.epoints
+        holder.view.tPeople?.text = "Нужно людей: %s".format(event.epeople)
+        holder.view.tPoints?.text = " %s баллов".format(event.epoints)
 
-        holder?.event = event
+        holder.event = event
     }
 
 
