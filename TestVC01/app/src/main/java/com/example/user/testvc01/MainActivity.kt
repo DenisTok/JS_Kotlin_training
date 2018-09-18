@@ -1,5 +1,6 @@
 package com.example.user.testvc01
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -19,7 +20,9 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.content_main.*
 import android.content.DialogInterface
+import android.content.Intent
 import android.support.v7.app.AlertDialog
+import android.view.View
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
@@ -30,10 +33,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         swipeRefrL.isRefreshing = true
-
+        isUserModer()
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            toAddEventActivity()
         }
 
         val toggle = ActionBarDrawerToggle(
@@ -51,7 +53,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
+    fun isUserModer(){
+        val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
+        val urole = sharedPref.getInt("urole",0)
+        if (urole == 1){ fab.visibility = View.VISIBLE }
 
+    }
+    fun toAddEventActivity(){
+        // Create an Intent to start the UserInformation activity
+        val AddEventActivityIntent = Intent(this, AddEventActivity::class.java)
+        // Start the new activity.
+        startActivity(AddEventActivityIntent)
+    }
     override fun onStart() {
         httpGet()
         swipeRefrL.isRefreshing = false

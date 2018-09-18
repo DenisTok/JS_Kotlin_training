@@ -97,7 +97,7 @@ class LoginScreen : AppCompatActivity() {
             putInt("idusers", user.idusers)
             putString("utoken", user.utoken)
             putString("uemail", user.uemail)
-            putInt("urole", 0)
+            putInt("urole", user.urole)
             apply()
         }
         if(sharedPref.getInt("idusers",0) != 0){

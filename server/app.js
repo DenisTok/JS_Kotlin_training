@@ -10,6 +10,7 @@ const login = require('./routes/login');
 const logintoken = require('./routes/logintoken');
 
 const getevents = require('./routes/getevents');
+const postevent = require('./routes/postevent');
 
 const reguinfo = require('./routes/reguinfo');
 const getuinfo = require('./routes/getuinfo');
@@ -24,5 +25,6 @@ app.use('/getevents', getevents);
 app.use('/login', login);
 app.use('/getuinfo', getuinfo);
 app.use('/logintoken', logintoken);
+app.use('/postevent', postevent);
 
 app.listen(3000, () => console.log('API started on PORT 3000'));
