@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -39,6 +40,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiPlace"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -53,6 +55,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -67,6 +70,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -81,6 +85,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiTimeZone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -95,6 +100,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -109,6 +115,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiPeople"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -123,6 +130,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiPoints"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -137,6 +145,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiPrivat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -147,36 +156,40 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Приватность"
-                    android:inputType="numberSigned" />
+                    android:inputType="text" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiPublish"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
-                    android:id="@+id/tPublish"
-                    android:layout_width="match_parent"
+                <Switch
+                    android:id="@+id/sPublish"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Опубликовать"
-                    android:inputType="number" />
+                    android:text="Опубликовать" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiArch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/tArch"
-                    android:layout_width="match_parent"
+                <Switch
+                    android:id="@+id/sArch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Архивировать"
-                    android:inputType="numberSigned" />
+                    android:text="Архивировать" />
             </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/buAddEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Подтвердить" />
         </LinearLayout>
     </ScrollView>
 

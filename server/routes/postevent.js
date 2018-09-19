@@ -22,7 +22,8 @@ async function checkrolebytoken(utoken) {
 }
 
 router.post('/', async (req, res) => {
-    if (await checkrolebytoken(req.body.utoken) == 1) {
+    let a = req.body.ename
+    if (await checkrolebytoken(req.body.utoken) == 1 && req.body.ename.length > 1) {
         try {
             let rows = connection.oneOrNone(
                 `INSERT INTO events (ename, ePlace, eDate, eTime, eTimeZone, eInfo, ePeople,
