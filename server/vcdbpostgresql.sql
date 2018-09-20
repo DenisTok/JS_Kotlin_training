@@ -47,10 +47,10 @@ CREATE INDEX IFK_Rel_01 ON usersInfo (users_idusers);
 
 CREATE TABLE rating (
   idrating SERIAL  NOT NULL ,
-  events_idevents INTEGER UNIQUE  NOT NULL ,
-  usersInfo_idusersInfo INTEGER UNIQUE  NOT NULL ,
-  usersInfo_users_idusers INTEGER UNIQUE NOT NULL ,
-  rVerif BOOL  DEFAULT 0    ,
+  events_idevents INTEGER   NOT NULL ,
+  usersInfo_idusersInfo INTEGER   NOT NULL ,
+  usersInfo_users_idusers INTEGER   NOT NULL ,
+  rVerif BOOL  DEFAULT false    ,
 PRIMARY KEY(idrating, events_idevents, usersInfo_idusersInfo, usersInfo_users_idusers)    ,
   FOREIGN KEY(events_idevents)
     REFERENCES events(idevents)
@@ -68,4 +68,11 @@ CREATE INDEX rating_FKIndex2 ON rating (usersInfo_idusersInfo, usersInfo_users_i
 CREATE INDEX IFK_Rel_02 ON rating (events_idevents);
 CREATE INDEX IFK_Rel_03 ON rating (usersInfo_idusersInfo, usersInfo_users_idusers);
 
+DROP TABLE rating;
+
+DROP TABLE usersInfo;
+
+DROP TABLE events;
+
+DROP TABLE users;
 
