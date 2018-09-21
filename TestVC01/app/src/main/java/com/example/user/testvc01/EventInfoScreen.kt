@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_event_info_screen.*
 import org.json.JSONObject
 
@@ -29,7 +30,7 @@ class EventInfoScreen : AppCompatActivity() {
         val idevent = intent.getIntExtra(MainAdapter.CustomViewHolder.EVENT_ID, 0)
 
         if(urole == 1){buUpdateEvent.visibility = View.VISIBLE}
-
+        getUsersForEvents(utoken,idevent)
         buRegToEvent.setOnClickListener {
             Toast.makeText(this, "Регистрация",
                     Toast.LENGTH_LONG).show()
@@ -77,20 +78,21 @@ class EventInfoScreen : AppCompatActivity() {
     }
 
 
-    fun getUsersForEvents( idusers:Int,utoken:String,idevent:String ){
+    fun getUsersForEvents(utoken:String,idevents:Int ){
+
+
+        fuelSeeUsers(utoken,idevents)
+
+
+    }
+
+    private fun fuelSeeUsers(token:String, idevents:Int){
+        val gson = GsonBuilder().setPrettyPrinting().create()
+        val jsonBody = gson.toJson("")
         val recyclerView: RecyclerView = findViewById(R.id.rvEventInfo)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
-        fuelSeeUsers(idusers,utoken,idevent)
-
-        recyclerView.adapter = UsersRowsAdapter()
-    }
-
-    private fun fuelSeeUsers(idusers:Int, token:String, idevent:String){
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonBody = gson.toJson("")
-        Fuel.post(routes.SERVER + routes.LOGINTOKEN,listOf("idusers" to idusers, "utoken" to token, "idevent" to idevent)).response { request, response, result ->
+        Fuel.post(routes.SERVER + routes.GETUSERSONEVENT,listOf("utoken" to token, "idevents" to idevents)).response { request, response, result ->
 
             when (result) {
                 is Result.Failure -> {
@@ -104,8 +106,13 @@ class EventInfoScreen : AppCompatActivity() {
                     println(String(data, Charsets.UTF_8))
                     val gson = GsonBuilder().setPrettyPrinting().create()
                     println("=== List from JSON ===")
-                    var user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
-                    println("fuelLoginToken: " + user)
+                    var userList: List<User> = gson.fromJson(String(data, Charsets.UTF_8), object : TypeToken<List<User>>() {}.type)
+                    userList.forEach { println(it) }
+
+                    runOnUiThread {
+                        recyclerView.adapter = UsersRowsAdapter(userList)
+                    }
+
 
                 }
             }

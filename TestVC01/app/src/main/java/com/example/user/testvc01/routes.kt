@@ -11,4 +11,5 @@ object routes {
     const val LOGINTOKEN:String = "/logintoken"
     const val POSTEVENT:String = "/postevent"
     const val REGONEVENT:String = "/regonevent"
+    const val GETUSERSONEVENT:String = "/getusersonevent"
 }

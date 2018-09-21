@@ -13,7 +13,7 @@ async function checkrolebytoken(utoken) {
         let role = await rows;
         if (await role === null) {
             return 0
-        } else if (role.urole == 0) {
+        } else if (role.urole >= 0) {
             return 1
         }
     } catch (err) {

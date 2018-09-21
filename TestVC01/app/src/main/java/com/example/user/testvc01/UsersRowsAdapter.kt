@@ -1,11 +1,12 @@
 package com.example.user.testvc01
 
-import android.content.Intent
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.Toast
+import kotlinx.android.synthetic.main.user_row.view.*
 
 
 class UsersRowsAdapter(val users: List<User>): RecyclerView.Adapter<UsersRowsAdapter.CustomViewHolde>() {
@@ -18,40 +19,34 @@ class UsersRowsAdapter(val users: List<User>): RecyclerView.Adapter<UsersRowsAda
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolde {
         // how do we even create a view
         val layoutInflater = LayoutInflater.from(parent.context)
-        val cellForRow = layoutInflater.inflate(R.layout.event_row, parent, false)
+        val cellForRow = layoutInflater.inflate(R.layout.user_row, parent, false)
         return CustomViewHolde(cellForRow)
     }
 
     override fun onBindViewHolder(holder: CustomViewHolde, position: Int) {
             // задаем значение создаваемых полей
+        val user = users[position]
+        holder.view.tName.text = user.uiname
+        holder.view.tSecName.text = user.uisecname
+        holder.view.chIsComing.isChecked = user.rverif
     }
 
 
-    class CustomViewHolde(val view: View, var event: Event? = null): RecyclerView.ViewHolder(view) {
+    class CustomViewHolde(val view: View, var user: User? = null): RecyclerView.ViewHolder(view) {
         companion object {
-            val EVENT_ID = "1"
-            val EVENT_NAME = "2"
-            val EVENT_DATE = "3"
-            val EVENT_PLACE = "4"
-            val EVENT_PEOPLE = "5"
-            val EVENT_POINTS = "6"
-            val EVENT_INFO = "7"
+            val USER_IDUSERS = "1"
+            val USER_IDUSERSINFO = "2"
+            val USER_NAME = "2"
+            val USER_SECNAME = "3"
         }
 
         init {
-            view.setOnClickListener {
-                val intent = Intent(view.context, EventInfoScreen::class.java)
-
-                intent.putExtra(EVENT_ID, event?.idevents)
-                intent.putExtra(EVENT_NAME, event?.ename)
-                intent.putExtra(EVENT_DATE, event?.edate)
-                intent.putExtra(EVENT_PLACE, event?.eplace)
-                intent.putExtra(EVENT_PEOPLE, event?.epeople)
-                intent.putExtra(EVENT_POINTS, event?.epoints)
-                intent.putExtra(EVENT_INFO, event?.einfo)
-
-
-                view.context.startActivity(intent)
+            val sharedPref = view.context.getSharedPreferences("loginData", Context.MODE_PRIVATE)
+            val urole = sharedPref.getInt("urole",0)
+            if (urole == 1){ view.chIsComing.isEnabled = true }
+            view.chIsComing.setOnClickListener {
+                Toast.makeText(view.context, "This is USER",
+                        Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -185,9 +185,9 @@ class RegScreen : AppCompatActivity() {
                 },
                 Response.ErrorListener { er ->
                     // error code
-                    val myToast = Toast.makeText(this, "ERROR: %s".format(er.toString()),
-                            Toast.LENGTH_SHORT)
-                    myToast.show()
+                    Toast.makeText(this, "ERROR: %s".format(er.toString()),
+                            Toast.LENGTH_SHORT).show()
+
 
                 }) {
             override fun getParams(): Map<String, String> = mapOf("email" to email,"password" to password)
