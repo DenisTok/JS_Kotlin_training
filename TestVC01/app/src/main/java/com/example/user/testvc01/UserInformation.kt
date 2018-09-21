@@ -119,9 +119,11 @@ class UserInformation : AppCompatActivity() {
             start()
         }
 
-        val url = routes.SERVER + routes.REG_uINFO
+
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val utoken = sharedPref.getString("utoken","")
+
+        val url = routes.SERVER + routes.REG_uINFO
 
         val stringRequest = object : StringRequest(Request.Method.POST, url,
                 Response.Listener { res ->

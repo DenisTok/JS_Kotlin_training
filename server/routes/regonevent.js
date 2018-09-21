@@ -40,6 +40,7 @@ async function isUserOnEvent(utoken, idevents) {
 }
 
 router.post('/', async (req, res) => {
+    console.log(req.body);
     if (await checkrolebytoken(req.body.utoken) != 0) {
         if (await isUserOnEvent(req.body.utoken, req.body.idevents) != 0) {
             try {

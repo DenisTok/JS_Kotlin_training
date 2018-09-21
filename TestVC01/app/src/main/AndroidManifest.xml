@@ -41,12 +41,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".AddEventActivity"
+        <activity
+            android:name=".AddEventActivity"
             android:label="@string/add_event">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".UsersRow"></activity>
     </application>
 
 </manifest>
