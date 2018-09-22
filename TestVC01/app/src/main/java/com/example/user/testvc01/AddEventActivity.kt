@@ -2,6 +2,7 @@ package com.example.user.testvc01
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -21,9 +22,24 @@ class AddEventActivity : AppCompatActivity() {
 
     var eispublished:Boolean = false
     var eisarhived:Boolean = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_event)
+
+        val isItUpdate:Int = intent.getIntExtra("isAddOrUpdate",0)
+
+
+        if(isItUpdate == 0){
+            buUpdateEvent.visibility = View.INVISIBLE
+            buAddEvent.visibility = View.VISIBLE
+
+        }else{
+            buUpdateEvent.visibility = View.VISIBLE
+            buAddEvent.visibility = View.INVISIBLE
+            setInformatioEvent()
+        }
 
         tName.afterTextChanged{tiName.error = null}
         tPlace.afterTextChanged{tiPlace.error = null}
@@ -60,6 +76,25 @@ class AddEventActivity : AppCompatActivity() {
             // Handler code here.
             subButton()
         }
+        buUpdateEvent.setOnClickListener {
+            // Handler code here.
+            subButton()
+        }
+    }
+    fun setInformatioEvent(){
+        val sharedPref = getSharedPreferences("eventData", Context.MODE_PRIVATE)
+        tName.setText(sharedPref.getString("E_NAME",""))
+        tPlace.setText(sharedPref.getString("E_PLACE",""))
+        tDate.setText(sharedPref.getString("E_DATE",""))
+        tInfo.setText(sharedPref.getString("E_INFO",""))
+        tPeople.setText(sharedPref.getString("E_PEOPLE",""))
+        tPoints.setText(sharedPref.getString("E_POINTS",""))
+        tTime.setText(sharedPref.getString("E_TIME",""))
+        tTimeZone.setText(sharedPref.getString("E_TIMEZONE",""))
+        tPrivat.setText(sharedPref.getInt("E_PRIVATE",0).toString())
+        sPublish.isChecked = sharedPref.getBoolean("E_ISPUBLISHED",false)
+
+
     }
     private fun privatedialog(){
         val items = arrayOf<CharSequence>("Публичное", "Пользовательское", "Приватное")
@@ -78,6 +113,12 @@ class AddEventActivity : AppCompatActivity() {
                         }
                     }
                 }.create().show()
+    }
+    fun toMainActivity(){
+        val MainActivityIntent = Intent(this, MainActivity::class.java)
+        // Start the new activity.
+        startActivity(MainActivityIntent)
+
     }
 
     fun subButton(){
@@ -132,28 +173,54 @@ class AddEventActivity : AppCompatActivity() {
         val epeople = tPeople.text.toString()
         val epoints = tPoints.text.toString()
         val eprivate = tPrivat.text.toString()
+        val eventDataPref = getSharedPreferences("eventData", Context.MODE_PRIVATE)
+        val idevent = eventDataPref.getInt("idevent",0)
+        val isItUpdate:Int = intent.getIntExtra("isAddOrUpdate",0)
+        if(isItUpdate == 0) {
+            Fuel.post(routes.SERVER + routes.POSTEVENT, listOf("utoken" to utoken, "ename" to ename,
+                    "eplace" to eplace, "edate" to edate, "etime" to etime, "etimezone" to etimezone,
+                    "einfo" to einfo, "epeople" to epeople, "epoints" to epoints, "eprivate" to eprivate,
+                    "eisarhived" to eisarhived, "eispublished" to eispublished)).response { request, response, result ->
 
-
-        Fuel.post(routes.SERVER + routes.POSTEVENT, listOf("utoken" to utoken, "ename" to ename,
-                "eplace" to eplace, "edate" to edate, "etime" to etime, "etimezone" to etimezone,
-                "einfo" to einfo, "epeople" to epeople, "epoints" to epoints, "eprivate" to eprivate,
-                "eisarhived" to eisarhived, "eispublished" to eispublished)).response { request, response, result ->
-
-            when (result) {
-                is Result.Failure -> {
-                    println("=== Exception ===")
-                    val ex = result.error.exception.message
-                    println(ex)
-                }
-                is Result.Success -> {
-                    val data = result.get()
-                    println(String(data, Charsets.UTF_8))
-                    println("=== List from JSON ===")
-                    val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                    println(jsonObj.getString("idevents"))
-
+                when (result) {
+                    is Result.Failure -> {
+                        println("=== Exception ===")
+                        val ex = result.error.exception.message
+                        println(ex)
+                    }
+                    is Result.Success -> {
+                        val data = result.get()
+                        println(String(data, Charsets.UTF_8))
+                        println("=== List from JSON ===")
+                        val jsonObj = JSONObject(String(data, Charsets.UTF_8))
+                        println(jsonObj.getString("idevents"))
+                        toMainActivity()
+                    }
                 }
             }
+        }else{
+            Fuel.post(routes.SERVER + routes.UPDATEEVENT, listOf("utoken" to utoken, "ename" to ename,
+                    "eplace" to eplace, "edate" to edate, "etime" to etime, "etimezone" to etimezone,
+                    "einfo" to einfo, "epeople" to epeople, "epoints" to epoints, "eprivate" to eprivate,
+                    "eisarhived" to eisarhived, "eispublished" to eispublished, "idevents" to idevent)).response { request, response, result ->
+
+                when (result) {
+                    is Result.Failure -> {
+                        println("=== Exception ===")
+                        val ex = result.error.exception.message
+                        println(ex)
+                    }
+                    is Result.Success -> {
+                        val data = result.get()
+                        println(String(data, Charsets.UTF_8))
+                        println("=== List from JSON ===")
+                        val jsonObj = JSONObject(String(data, Charsets.UTF_8))
+                        println(jsonObj.getString("idevents"))
+                        toMainActivity()
+                    }
+                }
+            }
+
         }
     }
     data class Event(val idevents: Int, var ename: String,

@@ -11,6 +11,8 @@ const logintoken = require('./routes/logintoken');
 
 const getevents = require('./routes/getevents');
 const postevent = require('./routes/postevent');
+const updateevent = require('./routes/updateevent');
+
 const regonevent = require('./routes/regonevent');
 
 const reguinfo = require('./routes/reguinfo');
@@ -33,5 +35,6 @@ app.use('/postevent', postevent);
 app.use('/regonevent', regonevent);
 app.use('/getusersonevent', getusersonevent);
 app.use('/verifuseronevent', verifuseronevent);
+app.use('/updateevent', updateevent);
 
 app.listen(3000, () => console.log('API started on PORT 3000'));

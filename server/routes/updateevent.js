@@ -3,6 +3,8 @@ const router = express.Router();
 const connection = require('../db').connection;
 
 
+router.get('/', (req, res) => res.send('Привет, это API!'));
+
 async function checkrolebytoken(utoken) {
     try {
         let rows = connection.oneOrNone(
@@ -20,15 +22,18 @@ async function checkrolebytoken(utoken) {
 }
 
 router.post('/', async (req, res) => {
-    
-    if (await checkrolebytoken(req.body.utoken) == 1) {
+    let a = req.body.ename
+    if (await checkrolebytoken(req.body.utoken) == 1 && req.body.ename.length > 1) {
         try {
             let rows = connection.oneOrNone(
-                `UPDATE rating 
-                SET rverif = $1
-                WHERE events_idevents = $2 AND usersinfo_idusersinfo = $3 
-                RETURNING rverif ;`,
-                [req.body.rverif, req.body.idevents, req.body.idusersinfo]);
+                `UPDATE events 
+                SET ename = $1, ePlace = $2, eDate = $3, eTime = $4, eTimeZone = $5, eInfo = $6, ePeople = $7, ePoints = $8,
+                ePrivate = $9, eIsPublished = $10, eIsArhived = $11
+                WHERE idevents = $12
+                RETURNING idevents;`,
+                [req.body.ename, req.body.eplace, req.body.edate, req.body.etime, 
+                    req.body.etimezone, req.body.einfo, req.body.epeople, req.body.epoints, 
+                    req.body.eprivate, req.body.eispublished, req.body.eisarhived, req.body.idevents]);
             if (await rows === null) {
                 res.sendStatus(401)
             } else {

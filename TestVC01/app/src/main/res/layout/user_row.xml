@@ -11,6 +11,13 @@
         android:layout_weight="1" >
 
         <TextView
+            android:id="@+id/tidusersinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            android:visibility="invisible" />
+
+        <TextView
             android:id="@+id/tName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +33,7 @@
             android:text="Иванов"
             android:textColor="@android:color/black" />
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/chIsComing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

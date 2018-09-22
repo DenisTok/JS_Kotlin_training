@@ -92,10 +92,18 @@
                 android:visibility="invisible" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvEventInfo"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sRefrL"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvEventInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

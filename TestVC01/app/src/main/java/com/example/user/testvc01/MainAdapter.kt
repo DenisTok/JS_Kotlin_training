@@ -34,6 +34,7 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
         holder.view.tWhere?.text = event.eplace
         holder.view.tPeople?.text = "Нужно людей: %s".format(event.epeople)
         holder.view.tPoints?.text = " %s баллов".format(event.epoints)
+        holder.view.eventidtext?.text = event.idevents.toString()
 
         holder.event = event
     }
@@ -48,6 +49,10 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
             val EVENT_PEOPLE = "5"
             val EVENT_POINTS = "6"
             val EVENT_INFO = "7"
+            val EVENT_TIME = "8"
+            val EVENT_TIMEZONE = "9"
+            val EVENT_PRIVATE = "10"
+            val EVENT_ISPUBLISHED = "11"
         }
 
         init {
@@ -61,7 +66,10 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
                 intent.putExtra(EVENT_PEOPLE, event?.epeople)
                 intent.putExtra(EVENT_POINTS, event?.epoints)
                 intent.putExtra(EVENT_INFO, event?.einfo)
-
+                intent.putExtra(EVENT_TIME, event?.etime)
+                intent.putExtra(EVENT_TIMEZONE, event?.etimezone)
+                intent.putExtra(EVENT_PRIVATE, event?.eprivate)
+                intent.putExtra(EVENT_ISPUBLISHED, event?.eispublished)
 
                 view.context.startActivity(intent)
             }

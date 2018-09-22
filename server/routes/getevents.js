@@ -9,7 +9,7 @@ router.get('/', async (req, res) => { //регистрация информац�
     try {
         
         let rows = connection.manyOrNone(
-            `SELECT * FROM events;`);
+            `SELECT * FROM events ORDER BY idevents DESC;`);
         res.send(await rows);
     } catch (err) {
         res.send("[5]"); // Информация о пользователе не найдена

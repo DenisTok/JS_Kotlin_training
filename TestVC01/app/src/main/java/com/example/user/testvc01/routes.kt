@@ -12,4 +12,7 @@ object routes {
     const val POSTEVENT:String = "/postevent"
     const val REGONEVENT:String = "/regonevent"
     const val GETUSERSONEVENT:String = "/getusersonevent"
+    const val VERIFUSERONEVENT:String = "/verifuseronevent"
+    const val UPDATEEVENT:String = "/updateevent"
+
 }
