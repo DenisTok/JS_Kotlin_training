@@ -116,6 +116,24 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/tiGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:counterEnabled="true"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
+
+                <EditText
+                    android:id="@+id/tGroup"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Уч. группа"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/tiInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -131,6 +149,7 @@
                     android:ems="10"
                     android:hint="@string/l_more_inf"
                     android:inputType="textMultiLine" />
+
             </android.support.design.widget.TextInputLayout>
 
             <Button

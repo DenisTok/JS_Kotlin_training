@@ -48,7 +48,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".UsersRow"></activity>
+        <activity android:name=".UsersRow" />
+        <activity android:name=".AccInformation"></activity>
     </application>
 
 </manifest>

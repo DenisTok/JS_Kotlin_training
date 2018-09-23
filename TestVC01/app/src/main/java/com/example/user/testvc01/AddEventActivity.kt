@@ -92,6 +92,7 @@ class AddEventActivity : AppCompatActivity() {
         tTime.setText(sharedPref.getString("E_TIME",""))
         tTimeZone.setText(sharedPref.getString("E_TIMEZONE",""))
         tPrivat.setText(sharedPref.getInt("E_PRIVATE",0).toString())
+        println("THIS IS PUBLISHED ->>>>>>> " + sharedPref.getBoolean("E_ISPUBLISHED",false))
         sPublish.isChecked = sharedPref.getBoolean("E_ISPUBLISHED",false)
 
 

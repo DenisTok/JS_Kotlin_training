@@ -5,11 +5,11 @@ const connection = require('../db').connection;
 
 //router.get('/', (req, res) => res.send('Привет, это API!'));
 
-async function tokenExist(req) {
+async function tokenExist(utoken) {
     try {
         let rows = connection.oneOrNone(
             `SELECT idusers FROM users WHERE utoken = $1`,
-            [req.body.utoken]);
+            [utoken]);
         if (await rows === null) {
             return false
         } else {
@@ -21,13 +21,12 @@ async function tokenExist(req) {
 }
 
 router.post('/', async (req, res) => { //регистрация информации post
-    console.log(req.body.utoken);
-    if (await tokenExist(req)) {
+    if (await tokenExist(req.body.utoken)) {
         try {
             let rows = connection.oneOrNone(
-                `SELECT uName, uSecName, uMidName, uPhone, uSize, uInfo 
-            FROM usersinfo
-            WHERE users_idusers = (SELECT idusers FROM users WHERE utoken = $1);`,
+            `SELECT u.uemail, u.urole, ui.uiname, ui.uiSecName, ui.uiMidName, ui.uiPhone, ui.uiSize, ui.uiInfo, ui.uiGroup 
+            FROM usersinfo ui, users u 
+            WHERE ui.users_idusers = u.idusers AND u.utoken = $1;`,
                 [req.body.utoken]);
             if (await rows === null) {
                 res.sendStatus(401)
@@ -35,6 +34,7 @@ router.post('/', async (req, res) => { //регистрация информац
                 res.send(await rows)
             }
         } catch (err) {
+            console.log(err)
             res.sendStatus(400); // Информация о пользователе не найдена
         }
     } else {

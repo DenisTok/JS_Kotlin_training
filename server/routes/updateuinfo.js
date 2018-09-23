@@ -21,8 +21,9 @@ router.post('/', async (req, res) => { //регистрация информац
     if (await tokenExist(req.body.uToken)) {
         try {
             let rows = connection.one(
-            `INSERT INTO usersInfo (users_idusers, uiname, uiSecName, uiMidName, uiPhone, uiSize, uiInfo, uiGroup) 
-            VALUES ((SELECT idusers FROM users WHERE utoken = $7), $1, $2, $3, $4, $5, $6, $8) 
+            `UPDATE usersInfo 
+            SET uiname = $1, uiSecName = $2, uiMidName = $3, uiPhone = $4, uiSize = $5, uiInfo = $6, uiGroup = $8 
+            WHERE users_idusers = (SELECT idusers FROM users WHERE utoken = $7) 
             RETURNING idusersinfo;
             `,
                 [req.body.uName,
@@ -31,6 +32,7 @@ router.post('/', async (req, res) => { //регистрация информац
                 req.body.uInfo, req.body.uToken, req.body.uiGroup]);
             res.send(await rows);
         } catch (err) {
+            console.log(err)
             res.send("[3]"); // Информация уже есть о пользователе
             
         }

@@ -17,6 +17,7 @@ const regonevent = require('./routes/regonevent');
 
 const reguinfo = require('./routes/reguinfo');
 const getuinfo = require('./routes/getuinfo');
+const updateuinfo = require('./routes/updateuinfo');
 
 const getusersonevent = require('./routes/getusersonevent');
 const verifuseronevent = require('./routes/verifuseronevent');
@@ -36,5 +37,6 @@ app.use('/regonevent', regonevent);
 app.use('/getusersonevent', getusersonevent);
 app.use('/verifuseronevent', verifuseronevent);
 app.use('/updateevent', updateevent);
+app.use('/updateuinfo', updateuinfo);
 
 app.listen(3000, () => console.log('API started on PORT 3000'));

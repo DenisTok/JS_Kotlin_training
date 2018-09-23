@@ -3,6 +3,7 @@ const connection = require('./db').connection;
 (async function createTables() {
 	try {
 		let res = connection.oneOrNone(`
+		
 		`);
 		console.log(await res)
 	}

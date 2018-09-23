@@ -3,7 +3,6 @@ package com.example.user.testvc01
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -19,9 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.content_main.*
-import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AlertDialog
 import android.view.View
 
 
@@ -137,24 +134,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_acc -> {
                 // Handle the camera action
             }
-            R.id.nav_gallery -> {
+            R.id.nav_top -> {
 
             }
-            R.id.nav_slideshow -> {
+            R.id.nav_exite -> {
+                // Create an Intent to start the UserInformation activity
+                val LoginScreenIntent = Intent(this, LoginScreen::class.java)
+                // Start the new activity.
+                startActivity(LoginScreenIntent)
+
+                val loginDataPref = getSharedPreferences("loginData" ,Context.MODE_PRIVATE)
+                with (loginDataPref.edit()) {
+                    remove("idusers")
+                    remove("utoken")
+                    remove("uemail")
+                    remove("urole")
+                    apply()
+                }
+
 
             }
-            R.id.nav_manage -> {
 
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

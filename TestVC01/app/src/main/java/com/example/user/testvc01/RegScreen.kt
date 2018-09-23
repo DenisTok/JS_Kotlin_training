@@ -28,6 +28,9 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import com.example.user.testvc01.R.id.*
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.result.Result
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_reg_screen.view.сhBoxxxx
 import kotlinx.android.synthetic.main.activity_reg_screen.view.*
 
@@ -163,7 +166,9 @@ class RegScreen : AppCompatActivity() {
 
                         else->{
                             println(res)
+
                             val jsonObj = JSONObject(res)
+                            println("jsonObj  " + jsonObj)
                             val myToast = Toast.makeText(this, "response: %s".format(jsonObj.getString("idusers")),
                                     Toast.LENGTH_SHORT)
                             myToast.show()
@@ -176,8 +181,9 @@ class RegScreen : AppCompatActivity() {
                                 putInt("urole", 0)
                                 apply()
                             }
+                            firstLoadUserData(jsonObj.getString("utoken"))
+                            toUserInformationForm(jsonObj.getInt("idusers"))
 
-                            toUserInformationForm(jsonObj.getString("idusers"))
 
                         }
                     }
@@ -196,8 +202,29 @@ class RegScreen : AppCompatActivity() {
         requestQueue.add(stringRequest)
 
     }
+    fun firstLoadUserData(uToken:String){
+        Fuel.post(routes.SERVER + routes.REG_uINFO, listOf("uToken" to uToken))
+                .response { request, response, result ->
+            when (result) {
+                is Result.Failure -> {
+                    println("=== Exception ===")
+                    val ex = result.error.exception.message
+                    println(ex)
+                }
+                is Result.Success -> {
+                    val data = result.get()
+                    println(String(data, Charsets.UTF_8))
+                    val jsonObj = JSONObject(String(data, Charsets.UTF_8))
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    println("=== List from JSON ===")
 
-    fun toUserInformationForm(uId:String){
+
+                }
+            }
+        }
+
+    }
+    fun toUserInformationForm(uId:Int){
         // Create an Intent to start the UserInformation activity
         val randomIntent = Intent(this, UserInformation::class.java)
         // Add the uId to the extras for the Intent.

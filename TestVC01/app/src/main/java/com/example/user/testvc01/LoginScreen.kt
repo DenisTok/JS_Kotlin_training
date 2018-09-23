@@ -29,8 +29,8 @@ class LoginScreen : AppCompatActivity() {
         setContentView(R.layout.activity_login_screen)
 
         val sharedPref = getSharedPreferences("loginData",Context.MODE_PRIVATE)
-        val idusers = sharedPref.getInt("idusers",1)/////////// ИЗМЕНИТЬ НА НУЛИ ПЕРЕД РЕЛИЗОМ
-        val utoken = sharedPref.getString("utoken","d5164d32c2d67cd20216d99f25e76f16c1c435a3038d31bbe21b61179b5306c1")
+        val idusers = sharedPref.getInt("idusers",0)
+        val utoken = sharedPref.getString("utoken","")
 
         tEmail.afterTextChanged { tiEmail.error = null }
         tPass.afterTextChanged { tiPass.error = null }
@@ -43,7 +43,9 @@ class LoginScreen : AppCompatActivity() {
         }
 
     }
-
+    override fun onBackPressed(){
+        moveTaskToBack(true)
+    }
     fun toRegForm(view: View){
         // Create an Intent to start the second activity
         val randomIntent = Intent(this, RegScreen::class.java)

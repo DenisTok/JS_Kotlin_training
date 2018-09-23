@@ -1,57 +1,55 @@
 CREATE TABLE users (
-  idusers SERIAL NOT NULL ,
-  uEmail VARCHAR(60)    ,
-  uRegDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP  ,
-  uToken VARCHAR(65)    ,
-  uRole INTEGER  DEFAULT 0    ,
+  idusers INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  uEmail VARCHAR(60)  NULL  ,
+  uRegDate TIMESTAMP  NULL DEFAULT CURRENT_TIMESTAMP ,
+  uToken VARCHAR(65)  NULL  ,
+  uRole INTEGER UNSIGNED  NULL DEFAULT 0   ,
 PRIMARY KEY(idusers));
 
 
-
 CREATE TABLE events (
-  idevents SERIAL  NOT NULL ,
-  eName VARCHAR(45)    ,
-  ePlace VARCHAR(45)    ,
-  eDate VARCHAR(10)    ,
-  eTime VARCHAR(8)    ,
-  eTimeZone VARCHAR(4)    ,
-  eInfo TEXT    ,
-  ePeople INTEGER    ,
-  ePoints INTEGER    ,
-  ePrivate SMALLSERIAL  DEFAULT 1  ,
-  eIsPublished BOOL  DEFAULT true  ,
-  eIsArhived BOOL  DEFAULT false    ,
+  idevents INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  eName VARCHAR(45)  NULL  ,
+  ePlace VARCHAR(45)  NULL  ,
+  eDate VARCHAR(10)  NULL  ,
+  eTime VARCHAR(8)  NULL  ,
+  eTimeZone VARCHAR(4)  NULL  ,
+  eInfo TEXT  NULL  ,
+  ePeople INTEGER UNSIGNED  NULL  ,
+  ePoints INTEGER UNSIGNED  NULL  ,
+  ePrivate INTEGER UNSIGNED  NULL DEFAULT 1 ,
+  eIsPublished BOOL  NULL DEFAULT true ,
+  eIsArhived BOOL  NULL DEFAULT false   ,
 PRIMARY KEY(idevents));
 
 
-
 CREATE TABLE usersInfo (
-  idusersInfo SERIAL  NOT NULL ,
-  users_idusers INTEGER UNIQUE  NOT NULL ,
-  uiName VARCHAR(20)    ,
-  uiSecName VARCHAR(20)    ,
-  uiMidName VARCHAR(20)    ,
-  uiPhone VARCHAR(20)    ,
-  uiSize VARCHAR(6)    ,
-  uiInfo TEXT      ,
+  idusersInfo INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  users_idusers INTEGER UNSIGNED  NOT NULL  ,
+  uiName VARCHAR(20)  NULL  ,
+  uiSecName VARCHAR(20)  NULL  ,
+  uiMidName VARCHAR(20)  NULL  ,
+  uiPhone VARCHAR(20)  NULL  ,
+  uiSize VARCHAR(6)  NULL  ,
+  uiInfo TEXT  NULL  ,
+  uiGroup VARCHAR(45)  NULL    ,
 PRIMARY KEY(idusersInfo, users_idusers)  ,
+INDEX usersInfo_FKIndex1(users_idusers),
   FOREIGN KEY(users_idusers)
     REFERENCES users(idusers)
+      ON DELETE NO ACTION
       ON UPDATE CASCADE);
 
 
-CREATE INDEX usersInfo_FKIndex1 ON usersInfo (users_idusers);
-
-CREATE INDEX IFK_Rel_01 ON usersInfo (users_idusers);
-
-
 CREATE TABLE rating (
-  idrating SERIAL  NOT NULL ,
-  events_idevents INTEGER   NOT NULL ,
-  usersInfo_idusersInfo INTEGER   NOT NULL ,
-  usersInfo_users_idusers INTEGER   NOT NULL ,
-  rVerif BOOL  DEFAULT false    ,
-PRIMARY KEY(idrating, events_idevents, usersInfo_idusersInfo, usersInfo_users_idusers)    ,
+  idrating INTEGER UNSIGNED  NOT NULL   AUTO_INCREMENT,
+  events_idevents INTEGER UNSIGNED  NOT NULL  ,
+  usersInfo_idusersInfo INTEGER UNSIGNED  NOT NULL  ,
+  usersInfo_users_idusers INTEGER UNSIGNED  NOT NULL  ,
+  rVerif BOOL  NULL DEFAULT 0   ,
+PRIMARY KEY(idrating, events_idevents, usersInfo_idusersInfo, usersInfo_users_idusers)  ,
+INDEX rating_FKIndex1(events_idevents)  ,
+INDEX rating_FKIndex2(usersInfo_idusersInfo, usersInfo_users_idusers),
   FOREIGN KEY(events_idevents)
     REFERENCES events(idevents)
       ON DELETE CASCADE
@@ -61,18 +59,4 @@ PRIMARY KEY(idrating, events_idevents, usersInfo_idusersInfo, usersInfo_users_id
       ON DELETE CASCADE
       ON UPDATE CASCADE);
 
-
-CREATE INDEX rating_FKIndex1 ON rating (events_idevents);
-CREATE INDEX rating_FKIndex2 ON rating (usersInfo_idusersInfo, usersInfo_users_idusers);
-
-CREATE INDEX IFK_Rel_02 ON rating (events_idevents);
-CREATE INDEX IFK_Rel_03 ON rating (usersInfo_idusersInfo, usersInfo_users_idusers);
-
-DROP TABLE rating;
-
-DROP TABLE usersInfo;
-
-DROP TABLE events;
-
-DROP TABLE users;
 

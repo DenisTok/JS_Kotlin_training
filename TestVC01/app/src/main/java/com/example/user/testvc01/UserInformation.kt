@@ -15,6 +15,7 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
+import com.example.user.testvc01.R.id.*
 import kotlinx.android.synthetic.main.activity_user_information.*
 import org.json.JSONObject
 import ru.tinkoff.decoro.MaskImpl
@@ -87,6 +88,9 @@ class UserInformation : AppCompatActivity() {
             tSiz.text.length > 6 -> {
                 tiSiz.error = "Пример размера: L, XL и тд"
             }
+            tGroup.text.isEmpty()->{
+                tiGroup.error = "Введите уч. группу"
+            }
             else ->{
                 load_uInfo()
             }
@@ -99,15 +103,16 @@ class UserInformation : AppCompatActivity() {
         val jsonObj = JSONObject(resp)
         return jsonObj.getString("idusersinfo")
     }
+
     fun load_uInfo(){
-        val uIdInInfo = intent.getStringExtra(uId)
+        val uIdInInfo = intent.getIntExtra(uId,0)
         val uSecName = tSecName.text.toString()
         val uName = tName.text.toString()
         val uMidName = tMidName.text.toString()
         val uPhone = tPhone.text.toString()
         val uSize = tSiz.text.toString()
         val uInfo = tInfo.text.toString()
-
+        val uiGroup = tGroup.text.toString()
         // Instantiate the cache
         val cache = DiskBasedCache(cacheDir, 1024 * 1024) // 1MB cap
 
@@ -123,7 +128,7 @@ class UserInformation : AppCompatActivity() {
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val utoken = sharedPref.getString("utoken","")
 
-        val url = routes.SERVER + routes.REG_uINFO
+        val url = routes.SERVER + routes.UPDATEUINFO
 
         val stringRequest = object : StringRequest(Request.Method.POST, url,
                 Response.Listener { res ->
@@ -152,14 +157,14 @@ class UserInformation : AppCompatActivity() {
                     myToast.show()
                 }) {
             override fun getParams(): Map<String, String> = mapOf(
-                    "usersIdUsers" to uIdInInfo,
                     "uSecName" to uSecName,
                     "uName" to uName,
                     "uMidName" to uMidName,
                     "uPhone" to uPhone,
                     "uSize" to uSize,
                     "uInfo" to uInfo,
-                    "uToken" to utoken)
+                    "uToken" to utoken,
+                    "uiGroup" to uiGroup)
         }
         // Add the request to the RequestQueue.
         requestQueue.add(stringRequest)
