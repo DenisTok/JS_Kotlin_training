@@ -15,5 +15,7 @@ object routes {
     const val VERIFUSERONEVENT:String = "/verifuseronevent"
     const val UPDATEEVENT:String = "/updateevent"
     const val UPDATEUINFO:String = "/updateuinfo"
+    const val GETTOP:String = "/gettop"
+
 
 }

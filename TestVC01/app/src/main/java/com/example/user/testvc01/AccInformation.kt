@@ -19,12 +19,19 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_acc_information.*
+import ru.tinkoff.decoro.MaskImpl
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 class AccInformation : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_acc_information)
+
+        val phoneSlots = UnderscoreDigitSlotsParser().parseSlots("+_(___)-___-__-__")
+
+        MaskFormatWatcher(MaskImpl.createTerminated(phoneSlots)).installOn(tPhone)
 
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val utoken = sharedPref.getString("utoken","")

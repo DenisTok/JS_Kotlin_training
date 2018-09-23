@@ -16,6 +16,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_login_screen.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 
 class LoginScreen : AppCompatActivity() {
@@ -94,6 +95,7 @@ class LoginScreen : AppCompatActivity() {
         startActivity(randomIntent)
     }
     private fun doSharedPreferences(user:User){
+
         val sharedPref = getSharedPreferences("loginData" ,Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
             putInt("idusers", user.idusers)

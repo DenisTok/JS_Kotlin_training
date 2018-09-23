@@ -1,5 +1,6 @@
 package com.example.user.testvc01
 
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -126,7 +127,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_settings -> {
+                AlertDialog.Builder(this)
+                        .setTitle("Создатель")
+                        .setMessage("Разработал Токарев Денис, Контакты email: tokd@tuta.io")
+                        .setPositiveButton(android.R.string.yes) { arg0, arg1 ->
+                        }.create().show()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -141,6 +149,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_top -> {
+                val ActivityRatingIntent = Intent(this, ActivityRating::class.java)
+                // Start the new activity.
+                startActivity(ActivityRatingIntent)
 
             }
             R.id.nav_exite -> {

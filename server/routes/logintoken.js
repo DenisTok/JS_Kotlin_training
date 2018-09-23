@@ -10,7 +10,7 @@ async function tokenExist(uToken) {
     if (uToken.length == 64) {        
         try {
             let rows = connection.oneOrNone(
-                `SELECT idusers FROM users WHERE utoken = $1`,
+                `SELECT idusers, uemail, urole, utoken FROM users WHERE utoken = $1`,
                 [uToken]);
             if (await rows === null) {
                 return false

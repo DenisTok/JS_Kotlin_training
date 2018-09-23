@@ -13,12 +13,12 @@
     <string name="l_Size_of_clother">Размер одежды</string>
     <string name="l_more_inf">Доп иформация</string>
     <string name="l_reg_in">Зарегистрироваться</string>
-    <string name="title_activity_main">Events</string>
+    <string name="title_activity_main">Мероприятия</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="add_event">Add Event</string>
+    <string name="action_settings">Создатель</string>
+    <string name="add_event">Добавить мероприятие</string>
 </resources>
