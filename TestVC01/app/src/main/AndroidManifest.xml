@@ -48,8 +48,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".UsersRow" />
-        <activity android:name=".AccInformation"></activity>
+        <!--<activity android:name=".UsersRow" />-->
+        <activity android:name=".AccInformation"
+            android:label="Моя информация">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>

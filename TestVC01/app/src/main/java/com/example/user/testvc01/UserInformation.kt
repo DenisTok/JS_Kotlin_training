@@ -40,12 +40,12 @@ class UserInformation : AppCompatActivity() {
             // Handler code here.
             onBuRegInClick()
         }
-        tName.afterTextChanged { tiName.error = null
-        }
+        tName.afterTextChanged { tiName.error = null }
         tSecName.afterTextChanged { tiSecName.error = null }
         tMidName.afterTextChanged { tiMidName.error = null }
         tPhone.afterTextChanged { tiPhone.error = null }
         tSiz.afterTextChanged { tiSiz.error = null }
+        tGroup.afterTextChanged { tiGroup.error = null }
 
 //        val string = getString(R.string.)
 
@@ -91,6 +91,10 @@ class UserInformation : AppCompatActivity() {
             tGroup.text.isEmpty()->{
                 tiGroup.error = "Введите уч. группу"
             }
+            tGroup.text.length > 30 ->{
+                tiGroup.error = "Введите уч. группу короче 30 символов"
+            }
+
             else ->{
                 load_uInfo()
             }
