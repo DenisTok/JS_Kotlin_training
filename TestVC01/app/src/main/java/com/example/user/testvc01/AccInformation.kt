@@ -108,17 +108,12 @@ class AccInformation : AppCompatActivity() {
 
             when (result) {
                 is Result.Failure -> {
-                    println("=== Exception ===")
                     val ex = result.error.exception.message
-                    println(ex)
                 }
                 is Result.Success -> {
                     val data = result.get()
-                    println(String(data, Charsets.UTF_8))
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    println("=== List from JSON ===")
                     var user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
-                    println("fuelLogin: $user")
                     runOnUiThread { setTextUser(user) }
 
                 }

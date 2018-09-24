@@ -91,12 +91,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 is Result.Success -> {
                     val data = result.get()
-                    println(data)
                     val gson = GsonBuilder().setPrettyPrinting().create()
 
-                    println("=== List from JSON ===")
                     var eventList: List<Event> = gson.fromJson(data.trimMargin(), object : TypeToken<List<Event>>() {}.type)
-                    eventList.forEach { println(it) }
 
                     runOnUiThread {
                         recyclerView.adapter = MainAdapter(eventList)

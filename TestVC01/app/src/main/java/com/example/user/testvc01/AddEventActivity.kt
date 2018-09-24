@@ -185,16 +185,11 @@ class AddEventActivity : AppCompatActivity() {
 
                 when (result) {
                     is Result.Failure -> {
-                        println("=== Exception ===")
                         val ex = result.error.exception.message
-                        println(ex)
                     }
                     is Result.Success -> {
                         val data = result.get()
-                        println(String(data, Charsets.UTF_8))
-                        println("=== List from JSON ===")
                         val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                        println(jsonObj.getString("idevents"))
                         toMainActivity()
                     }
                 }
@@ -207,16 +202,11 @@ class AddEventActivity : AppCompatActivity() {
 
                 when (result) {
                     is Result.Failure -> {
-                        println("=== Exception ===")
                         val ex = result.error.exception.message
-                        println(ex)
                     }
                     is Result.Success -> {
                         val data = result.get()
-                        println(String(data, Charsets.UTF_8))
-                        println("=== List from JSON ===")
                         val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                        println(jsonObj.getString("idevents"))
                         toMainActivity()
                     }
                 }

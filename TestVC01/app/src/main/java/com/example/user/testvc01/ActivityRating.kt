@@ -39,17 +39,12 @@ class ActivityRating : AppCompatActivity() {
 
             when (result) {
                 is Result.Failure -> {
-                    println("=== Exception ===")
                     val ex = result.error.exception.message
-                    println(ex)
                 }
                 is Result.Success -> {
                     val data = result.get()
-                    println(String(data, Charsets.UTF_8))
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    println("=== List from JSON ===")
                     var ratingList: List<Rating> = gson.fromJson(String(data, Charsets.UTF_8), object : TypeToken<List<Rating>>() {}.type)
-                    ratingList.forEach { println(it) }
                     runOnUiThread {
                         recyclerView.adapter = RatingAdapter(ratingList)
                     }

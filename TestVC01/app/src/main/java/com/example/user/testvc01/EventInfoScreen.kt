@@ -99,9 +99,7 @@ class EventInfoScreen : AppCompatActivity() {
 
             when (result) {
                 is Result.Failure -> {
-                    println("=== Exception ===")
                     val ex = result.error.exception.message
-                    println(ex)
                     Toast.makeText(this, "Error: %s".format(ex),
                             Toast.LENGTH_SHORT).show()
                 }
@@ -109,11 +107,8 @@ class EventInfoScreen : AppCompatActivity() {
                     Toast.makeText(this, "Успешно",
                             Toast.LENGTH_SHORT).show()
                     val data = result.get()
-                    println(String(data, Charsets.UTF_8))
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    println("=== List from JSON ===")
                     val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                    println(jsonObj)
 
                 }
             }

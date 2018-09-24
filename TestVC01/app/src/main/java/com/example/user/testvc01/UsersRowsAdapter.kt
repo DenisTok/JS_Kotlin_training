@@ -93,12 +93,9 @@ class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<User
             Fuel.post(routes.SERVER + routes.VERIFUSERONEVENT,listOf("utoken" to utoken,
                     "idevents" to idevents,"rverif" to rverif,"idusersinfo" to idusersinfo))
                     .response { request, response, result ->
-                        println(request)
                         when (result) {
                             is Result.Failure -> {
-                                println("=== Exception51 ===")
                                 val ex = result.error.exception.message
-                                println(ex)
                                 //меняем значение галочки на противоположное и
                                 //включаем галочку если запрос не прошел
                                 Thread(Runnable {
@@ -108,11 +105,7 @@ class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<User
                             }
                             is Result.Success -> {
                                 val data = result.get()
-                                println(String(data, Charsets.UTF_8))
-                                println("=== List from JSON ===")
                                 val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                                println(jsonObj)
-                                println("Boolean" + jsonObj.getBoolean("rverif"))
                                 if (jsonObj.getBoolean("rverif")) {
                                     Thread(Runnable {
                                         val i: Int = 1

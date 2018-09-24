@@ -51,21 +51,21 @@ class RegScreen : AppCompatActivity() {
 
         сhBoxxxx.setOnClickListener { _ ->
             if (сhBoxxxx.isChecked) {
-                val htmlstring: String = "Я прочел и согласен с <a href='http://bit.ly/2NJshMg'>политикой конфиденциальности.</a>"
+//                val htmlstring: String = "Я прочел и согласен с <a href='http://bit.ly/2NJshMg'>политикой конфиденциальности.</a>"
                 val message = TextView(this)
-                message.text = fromHtml(htmlstring)
+//                message.text = fromHtml(htmlstring)
                 message.setPadding(30, 5, 0, 0)
                 message.movementMethod = LinkMovementMethod.getInstance()
-                AlertDialog.Builder(this)
-                        .setTitle("Политика Конфиденциальности")
-                        .setView(message)
-                        .setCancelable(false)
-                        .setNegativeButton(android.R.string.no) { _, _ ->
-                            сhBoxxxx.isChecked = false
-                        }
-                        .setPositiveButton(android.R.string.yes) { _, _ ->
-                            сhBoxxxx.isChecked = true
-                        }.create().show()
+//                AlertDialog.Builder(this)
+//                        .setTitle("Политика Конфиденциальности")
+//                        .setView(message)
+//                        .setCancelable(false)
+//                        .setNegativeButton(android.R.string.no) { _, _ ->
+//                            сhBoxxxx.isChecked = false
+//                        }
+//                        .setPositiveButton(android.R.string.yes) { _, _ ->
+//                            сhBoxxxx.isChecked = true
+//                        }.create().show()
             }
         }
 
@@ -89,11 +89,11 @@ class RegScreen : AppCompatActivity() {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isPasswordValid():Boolean {
+    private fun isPasswordValid():Boolean {
         return tPass.text.length > 7
     }
 
-    fun isPasswordsTheSame():Boolean{
+    private fun isPasswordsTheSame():Boolean{
         return tPass.text.toString() == tRePass.text.toString()
     }
     fun subButton(view: View){
@@ -121,7 +121,7 @@ class RegScreen : AppCompatActivity() {
 
     }
 
-    fun tryToReg(view: View){
+    private fun tryToReg(view: View){
         val email = tEmail.text.toString()
         val password = tPass.text.toString()
 
@@ -165,10 +165,7 @@ class RegScreen : AppCompatActivity() {
                         }
 
                         else->{
-                            println(res)
-
                             val jsonObj = JSONObject(res)
-                            println("jsonObj  " + jsonObj)
                             val myToast = Toast.makeText(this, "response: %s".format(jsonObj.getString("idusers")),
                                     Toast.LENGTH_SHORT)
                             myToast.show()
@@ -207,16 +204,12 @@ class RegScreen : AppCompatActivity() {
                 .response { request, response, result ->
             when (result) {
                 is Result.Failure -> {
-                    println("=== Exception ===")
                     val ex = result.error.exception.message
-                    println(ex)
                 }
                 is Result.Success -> {
                     val data = result.get()
-                    println(String(data, Charsets.UTF_8))
                     val jsonObj = JSONObject(String(data, Charsets.UTF_8))
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    println("=== List from JSON ===")
 
 
                 }
@@ -240,8 +233,6 @@ class RegScreen : AppCompatActivity() {
             fos.close()
 
         }catch (e:IOException){
-            Toast.makeText(this, "ERROR: %s".format(e.toString()),
-                    Toast.LENGTH_SHORT)
         }
     }
     private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
