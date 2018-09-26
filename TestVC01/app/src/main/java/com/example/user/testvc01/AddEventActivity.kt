@@ -17,6 +17,7 @@ import org.json.JSONObject
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
+import app.volMP.u.rel.R
 
 class AddEventActivity : AppCompatActivity() {
 

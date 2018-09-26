@@ -21,6 +21,7 @@ import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.content_main.*
 import android.content.Intent
 import android.view.View
+import app.volMP.u.rel.R
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {

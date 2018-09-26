@@ -13,6 +13,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.user_row.view.*
 import org.json.JSONObject
+import app.volMP.u.rel.R
 
 
 class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<UsersRowsAdapter.CustomViewHolde>() {

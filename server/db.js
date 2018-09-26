@@ -1,5 +1,5 @@
 const pgp = require('pg-promise')();
-const connectionString = require('./config').connectionString;
+const connectionString = require('./configTests').connectionString;
 const connection = pgp(connectionString);
 
 connection.connect()

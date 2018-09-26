@@ -11,12 +11,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import com.example.user.testvc01.R.id.tPass
+import app.volMP.u.rel.R
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_login_screen.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+
 
 
 class LoginScreen : AppCompatActivity() {

@@ -27,12 +27,14 @@ import android.text.Html.fromHtml
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import com.example.user.testvc01.R.id.*
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_reg_screen.view.сhBoxxxx
 import kotlinx.android.synthetic.main.activity_reg_screen.view.*
+import app.volMP.u.rel.R
+
+
 
 
 class RegScreen : AppCompatActivity() {

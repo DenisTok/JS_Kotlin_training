@@ -5,3 +5,5 @@ npm-debug.log
 .DS_Store
 editdb.js
 respons.json
+configTests.js
+vcdbpostgresql.sql

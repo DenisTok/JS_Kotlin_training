@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_event_info_screen.*
 import org.json.JSONObject
+import app.volMP.u.rel.R
 
 class EventInfoScreen : AppCompatActivity() {
 

@@ -15,7 +15,7 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
-import com.example.user.testvc01.R.id.*
+import app.volMP.u.rel.R
 import kotlinx.android.synthetic.main.activity_user_information.*
 import org.json.JSONObject
 import ru.tinkoff.decoro.MaskImpl
