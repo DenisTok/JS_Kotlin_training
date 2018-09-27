@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.content.Context
 import android.graphics.Color
@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import app.volMP.u.rel.R
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
@@ -27,7 +26,7 @@ class ActivityRating : AppCompatActivity() {
 
     }
 
-    fun getRating(){
+    private fun getRating(){
         val recyclerView: RecyclerView = findViewById(R.id.rwRating)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -36,16 +35,17 @@ class ActivityRating : AppCompatActivity() {
 
 
         Fuel.post(routes.SERVER + routes.GETTOP, listOf("utoken" to utoken))
-                .response { request, response, result ->
+                .response { _, _, result ->
 
             when (result) {
                 is Result.Failure -> {
                     val ex = result.error.exception.message
+                    println(ex)
                 }
                 is Result.Success -> {
                     val data = result.get()
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    var ratingList: List<Rating> = gson.fromJson(String(data, Charsets.UTF_8), object : TypeToken<List<Rating>>() {}.type)
+                    val ratingList: List<Rating> = gson.fromJson(String(data, Charsets.UTF_8), object : TypeToken<List<Rating>>() {}.type)
                     runOnUiThread {
                         recyclerView.adapter = RatingAdapter(ratingList)
                     }

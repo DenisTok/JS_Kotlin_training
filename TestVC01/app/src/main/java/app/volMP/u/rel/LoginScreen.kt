@@ -1,23 +1,19 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.startActivity
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import app.volMP.u.rel.R
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_login_screen.*
-import kotlinx.android.synthetic.main.nav_header_main.*
-
 
 
 class LoginScreen : AppCompatActivity() {
@@ -73,7 +69,7 @@ class LoginScreen : AppCompatActivity() {
 
 
 
-    fun isPasswordValid():Boolean {
+    private fun isPasswordValid():Boolean {
         return tPass.text.length > 7
     }
 
@@ -95,7 +91,7 @@ class LoginScreen : AppCompatActivity() {
         // Start the new activity.
         startActivity(randomIntent)
     }
-    private fun doSharedPreferences(user:User){
+    private fun doSharedPreferences(user: User){
 
         val sharedPref = getSharedPreferences("loginData" ,Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
@@ -111,37 +107,37 @@ class LoginScreen : AppCompatActivity() {
 
     }
     private fun fuelLogin(passeord:String, email:String) {
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonBody = gson.toJson("")
+        //val gson = GsonBuilder().setPrettyPrinting().create()
+        //val jsonBody = gson.toJson("")
         Fuel.post(routes.SERVER + routes.LOGIN, listOf("password" to passeord, "uemail" to email)).response { request, response, result ->
 
             when (result) {
                 is Result.Failure -> {
-                    val ex = result.error.exception.message
+                    //val ex = result.error.exception.message
                 }
                 is Result.Success -> {
                     val data = result.get()
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    var user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
+                    val user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
                     doSharedPreferences(user)
                 }
             }
         }
     }
     private fun fuelLoginToken(idusers:Int, token:String){
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonBody = gson.toJson("")
+        //val gson = GsonBuilder().setPrettyPrinting().create()
+        //val jsonBody = gson.toJson("")
         Fuel.post(routes.SERVER + routes.LOGINTOKEN,listOf("idusers" to idusers, "utoken" to token)).response { request, response, result ->
 
             when (result) {
                 is Result.Failure -> {
-                    val ex = result.error.exception.message
+                    //val ex = result.error.exception.message
                 }
                 is Result.Success -> {
                     val data = result.get()
 
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    var user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
+                    val user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
                     doSharedPreferences(user)
                 }
             }

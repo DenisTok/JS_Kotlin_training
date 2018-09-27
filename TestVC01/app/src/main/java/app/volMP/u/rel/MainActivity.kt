@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.app.AlertDialog
 import android.content.Context
@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.content_main.*
 import android.content.Intent
-import android.view.View
-import app.volMP.u.rel.R
+import com.github.kittinunf.fuel.httpPost
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
@@ -52,10 +51,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     }
+
     fun isUserModer(){
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val urole = sharedPref.getInt("urole",0)
-        if (urole == 1){ fab.visibility = View.VISIBLE }
+        if (urole == 1){ fab.show() }
 
     }
     fun toAddEventActivity(){
@@ -81,25 +81,51 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView_main)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val url:String = routes.SERVER+routes.GET_EVENTS
+        val url:String = routes.SERVER + routes.GET_EVENTS
+        val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
+        val urole = sharedPref.getInt("urole",0)
+        val utoken = sharedPref.getString("utoken","")
+        if(urole == 1){
+            url.httpPost(listOf("utoken" to utoken)).responseString { request, response, result ->
+                //do something with response
+                when (result) {
+                    is Result.Failure -> {
+                        val ex = result.getException()
+                        println(ex)
 
-        url.httpGet().responseString { request, response, result ->
-            //do something with response
-            when (result) {
-                is Result.Failure -> {
-                    val ex = result.getException()
-
-                }
-                is Result.Success -> {
-                    val data = result.get()
-                    val gson = GsonBuilder().setPrettyPrinting().create()
-
-                    var eventList: List<Event> = gson.fromJson(data.trimMargin(), object : TypeToken<List<Event>>() {}.type)
-
-                    runOnUiThread {
-                        recyclerView.adapter = MainAdapter(eventList)
                     }
+                    is Result.Success -> {
+                        val data = result.get()
+                        val gson = GsonBuilder().setPrettyPrinting().create()
 
+                        val eventList: List<Event> = gson.fromJson(data.trimMargin(), object : TypeToken<List<Event>>() {}.type)
+
+                        runOnUiThread {
+                            recyclerView.adapter = MainAdapter(eventList)
+                        }
+
+                    }
+                }
+            }
+        }else{
+            url.httpGet().responseString { request, response, result ->
+                //do something with response
+                when (result) {
+                    is Result.Failure -> {
+                        val ex = result.getException()
+                        println(ex)
+                    }
+                    is Result.Success -> {
+                        val data = result.get()
+                        val gson = GsonBuilder().setPrettyPrinting().create()
+
+                        val eventList: List<Event> = gson.fromJson(data.trimMargin(), object : TypeToken<List<Event>>() {}.type)
+
+                        runOnUiThread {
+                            recyclerView.adapter = MainAdapter(eventList)
+                        }
+
+                    }
                 }
             }
         }
@@ -141,22 +167,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_acc -> {
-                val AccInformationIntent = Intent(this, AccInformation::class.java)
+                val accInformationIntent = Intent(this, AccInformation::class.java)
                 // Start the new activity.
-                startActivity(AccInformationIntent)
+                startActivity(accInformationIntent)
 
             }
             R.id.nav_top -> {
-                val ActivityRatingIntent = Intent(this, ActivityRating::class.java)
+                val activityRatingIntent = Intent(this, ActivityRating::class.java)
                 // Start the new activity.
-                startActivity(ActivityRatingIntent)
+                startActivity(activityRatingIntent)
 
             }
             R.id.nav_exite -> {
                 // Create an Intent to start the UserInformation activity
-                val LoginScreenIntent = Intent(this, LoginScreen::class.java)
+                val loginScreenIntent = Intent(this, LoginScreen::class.java)
                 // Start the new activity.
-                startActivity(LoginScreenIntent)
+                startActivity(loginScreenIntent)
 
                 val loginDataPref = getSharedPreferences("loginData" ,Context.MODE_PRIVATE)
                 with (loginDataPref.edit()) {

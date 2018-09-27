@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,7 +13,6 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 import kotlinx.android.synthetic.main.user_row.view.*
 import org.json.JSONObject
-import app.volMP.u.rel.R
 
 
 class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<UsersRowsAdapter.CustomViewHolde>() {
@@ -90,17 +89,17 @@ class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<User
             }
         }
 
-        fun verifUser(utoken:String,rverif:Boolean,idevents:Int, idusersinfo:Int?){
+        private fun verifUser(utoken:String, rverif:Boolean, idevents:Int, idusersinfo:Int?){
             Fuel.post(routes.SERVER + routes.VERIFUSERONEVENT,listOf("utoken" to utoken,
                     "idevents" to idevents,"rverif" to rverif,"idusersinfo" to idusersinfo))
-                    .response { request, response, result ->
+                    .response { _, _, result ->
                         when (result) {
                             is Result.Failure -> {
-                                val ex = result.error.exception.message
+                                //val ex = result.error.exception.message
                                 //меняем значение галочки на противоположное и
                                 //включаем галочку если запрос не прошел
                                 Thread(Runnable {
-                                    val i:Int = 0
+                                    val i = 0
                                     h.sendEmptyMessage(i)
                                 }).start()
                             }
@@ -109,12 +108,12 @@ class UsersRowsAdapter(private val users: List<User>): RecyclerView.Adapter<User
                                 val jsonObj = JSONObject(String(data, Charsets.UTF_8))
                                 if (jsonObj.getBoolean("rverif")) {
                                     Thread(Runnable {
-                                        val i: Int = 1
+                                        val i = 1
                                         h.sendEmptyMessage(i)
                                     }).start()
                                 }else{
                                     Thread(Runnable {
-                                        val i: Int = 2
+                                        val i = 2
                                         h.sendEmptyMessage(i)
                                     }).start()
 

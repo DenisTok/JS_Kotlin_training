@@ -34,7 +34,6 @@ router.post('/', async (req, res) => { //логин По токену post
                 let rows = connection.oneOrNone(
                     `SELECT idusers, urole, uemail, utoken FROM users WHERE utoken = $1;`,
                     [req.body.utoken]);
-                console.log(await rows);
                 res.send(await rows);
             } catch (err) {
                 res.sendStatus(400);

@@ -1,11 +1,12 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.volMP.u.rel.R
 import kotlinx.android.synthetic.main.event_row.view.*
 
 
@@ -33,11 +34,26 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
         val event = events[position]
         holder.view.lEventName?.text = event.ename
         holder.view.tWhen?.text = "Дата: %s".format(event.edate)
+        holder.view.tTime?.text = "Время: %s".format(event.etime)
         holder.view.tWhere?.text = event.eplace
         holder.view.tPeople?.text = "Нужно людей: %s".format(event.epeople)
         holder.view.tPoints?.text = " %s баллов".format(event.epoints)
         holder.view.eventidtext?.text = event.idevents.toString()
+        when{
+            event.eisarhived -> {
+                holder.view.lEventName?.setBackgroundColor(Color.argb(128,255,191,128))
+            }
+            !event.eispublished -> {
+                holder.view.lEventName?.setBackgroundColor(Color.argb(128,255,255,102))
+            }
+            event.eprivate == 2 -> {
+                holder.view.lEventName?.setBackgroundColor(Color.argb(100,51,153,255))
+            }
+            else -> {
+                holder.view.lEventName?.setBackgroundColor(Color.WHITE)
+            }
 
+        }
         holder.event = event
     }
 
@@ -55,6 +71,7 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
             val EVENT_TIMEZONE = "9"
             val EVENT_PRIVATE = "10"
             val EVENT_ISPUBLISHED = "11"
+            val EVENT_ARCHIVED = "12"
         }
 
         init {
@@ -72,6 +89,7 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
                 intent.putExtra(EVENT_TIMEZONE, event?.etimezone)
                 intent.putExtra(EVENT_PRIVATE, event?.eprivate)
                 intent.putExtra(EVENT_ISPUBLISHED, event?.eispublished)
+                intent.putExtra(EVENT_ARCHIVED, event?.eisarhived)
 
                 view.context.startActivity(intent)
             }

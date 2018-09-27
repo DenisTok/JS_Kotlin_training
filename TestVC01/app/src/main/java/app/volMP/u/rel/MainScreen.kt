@@ -1,8 +1,7 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import app.volMP.u.rel.R
 
 class MainScreen : AppCompatActivity() {
 

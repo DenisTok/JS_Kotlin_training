@@ -1,12 +1,10 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
@@ -18,23 +16,11 @@ import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
 import kotlinx.android.synthetic.main.activity_reg_screen.*
 import org.json.JSONObject
-import java.io.FileOutputStream
-import java.io.IOException
 import android.text.TextUtils
-import android.os.Build
-import android.support.v4.content.ContextCompat.startActivity
-import android.text.Html.fromHtml
-import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
-import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_reg_screen.view.сhBoxxxx
-import kotlinx.android.synthetic.main.activity_reg_screen.view.*
-import app.volMP.u.rel.R
-
-
 
 
 class RegScreen : AppCompatActivity() {
@@ -77,14 +63,14 @@ class RegScreen : AppCompatActivity() {
 
 
 
-    fun fromHtml(source: String): Spanned {
+    /*fun fromHtml(source: String): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY)
         } else {
             @Suppress("DEPRECATION")
             Html.fromHtml(source)
         }
-    }
+    }*/
 
     private fun isEmailValid(): Boolean {
         val email = tEmail.text.toString()
@@ -203,15 +189,15 @@ class RegScreen : AppCompatActivity() {
     }
     fun firstLoadUserData(uToken:String){
         Fuel.post(routes.SERVER + routes.REG_uINFO, listOf("uToken" to uToken))
-                .response { request, response, result ->
+                .response { _, _, result ->
             when (result) {
                 is Result.Failure -> {
-                    val ex = result.error.exception.message
+                    //val ex = result.error.exception.message
                 }
                 is Result.Success -> {
-                    val data = result.get()
-                    val jsonObj = JSONObject(String(data, Charsets.UTF_8))
-                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    //val data = result.get()
+                    //val jsonObj = JSONObject(String(data, Charsets.UTF_8))
+                    //val gson = GsonBuilder().setPrettyPrinting().create()
 
 
                 }
@@ -227,7 +213,7 @@ class RegScreen : AppCompatActivity() {
         // Start the new activity.
         startActivity(randomIntent)
     }
-    private fun saveInInternalFolder(stringToSave:String,fileName:String){
+    /*private fun saveInInternalFolder(stringToSave:String,fileName:String){
          val fos: FileOutputStream
         try{
             fos = openFileOutput(fileName, Context.MODE_PRIVATE)
@@ -236,7 +222,7 @@ class RegScreen : AppCompatActivity() {
 
         }catch (e:IOException){
         }
-    }
+    }*/
     private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

@@ -43,4 +43,4 @@ app.use('/updateuinfo', updateuinfo);
 app.use('/gettop', getTOP);
 
 //tests 3000 // no test: process.env.PORT
-app.listen(3000, () => console.log('API started on PORT: ' + 3000));
+app.listen(process.env.PORT, () => console.log('API started on PORT: ' + process.env.PORT));

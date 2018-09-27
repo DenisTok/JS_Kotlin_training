@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
-import app.volMP.u.rel.R
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -94,9 +93,9 @@ class AccInformation : AppCompatActivity() {
             }
 
             else ->{
-                val user = User(0,utoken,0,tEmail.text.toString(),0,tName.text.toString(),
-                        tSecName.text.toString(),false,tMidName.text.toString(),tPhone.text.toString(),
-                        tSiz.text.toString(),tInfo.text.toString(),tGroup.text.toString())
+                val user = User(0, utoken, 0, tEmail.text.toString(), 0, tName.text.toString(),
+                        tSecName.text.toString(), false, tMidName.text.toString(), tPhone.text.toString(),
+                        tSiz.text.toString(), tInfo.text.toString(), tGroup.text.toString())
                 updatetext(user)
 
             }
@@ -105,23 +104,24 @@ class AccInformation : AppCompatActivity() {
     private fun fuelGetUinfo(utoken:String) {
         Fuel.post(routes.SERVER + routes.GET_UINFO,
                 listOf("utoken" to utoken))
-                .response { request, response, result ->
+                .response { _, _, result ->
 
             when (result) {
                 is Result.Failure -> {
                     val ex = result.error.exception.message
+                    println(ex)
                 }
                 is Result.Success -> {
                     val data = result.get()
                     val gson = GsonBuilder().setPrettyPrinting().create()
-                    var user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
+                    val user: User = gson.fromJson(String(data, Charsets.UTF_8), User::class.java)
                     runOnUiThread { setTextUser(user) }
 
                 }
             }
         }
     }
-    fun setTextUser(user:User){
+    private fun setTextUser(user: User){
         tEmail.setText(user.uemail)
 
         tName.setText(user.uiname)
@@ -133,7 +133,7 @@ class AccInformation : AppCompatActivity() {
         tGroup.setText(user.uigroup)
     }
 
-    fun updatetext(user:User){
+    private fun updatetext(user: User){
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val utoken = sharedPref.getString("utoken","")
         val url = routes.SERVER + routes.UPDATEUINFO
@@ -180,11 +180,11 @@ class AccInformation : AppCompatActivity() {
     }
     fun toMainScreenForm(){
         // Create an Intent to start the UserInformation activity
-        val MainActivityIntent = Intent(this, MainActivity::class.java)
+        val mainActivityIntent = Intent(this, MainActivity::class.java)
         // Start the new activity.
-        startActivity(MainActivityIntent)
+        startActivity(mainActivityIntent)
     }
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

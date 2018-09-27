@@ -1,6 +1,6 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
-object routes {
+object routes {//warm-plains-29356.herokuapp.com
     const val HTTP:String = "https://"
     const val SERVER:String = HTTP + "warm-plains-29356.herokuapp.com"
     const val uREG:String = "/reg"

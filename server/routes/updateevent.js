@@ -22,7 +22,7 @@ async function checkrolebytoken(utoken) {
 }
 
 router.post('/', async (req, res) => {
-    let a = req.body.ename
+    //console.log(req.body)
     if (await checkrolebytoken(req.body.utoken) == 1 && req.body.ename.length > 1) {
         try {
             let rows = connection.oneOrNone(

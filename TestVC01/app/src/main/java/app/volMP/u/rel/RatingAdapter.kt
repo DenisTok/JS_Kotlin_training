@@ -1,11 +1,9 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import app.volMP.u.rel.R
 import kotlinx.android.synthetic.main.user_rating_row.view.*
 
 

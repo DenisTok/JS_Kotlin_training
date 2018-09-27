@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.app.AlertDialog
 import android.content.Context
@@ -17,12 +17,11 @@ import org.json.JSONObject
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
-import app.volMP.u.rel.R
 
 class AddEventActivity : AppCompatActivity() {
 
-    var eispublished:Boolean = false
-    var eisarhived:Boolean = false
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,18 +60,13 @@ class AddEventActivity : AppCompatActivity() {
         val tPrivatSlots = UnderscoreDigitSlotsParser().parseSlots("_")
         MaskFormatWatcher(MaskImpl.createTerminated(tPrivatSlots)).installOn(tPrivat)
 
-        sPublish.setOnCheckedChangeListener { _, isChecked ->
-            eispublished = isChecked
-        }
-        sArch.setOnCheckedChangeListener { _, isChecked ->
-            eisarhived = isChecked
-        }
+
 
         tPrivat.setOnClickListener {
             // Handler code here.
             privatedialog()
         }
-        tPrivat.setOnFocusChangeListener { v, hasFocus -> if(hasFocus){privatedialog()}}
+        tPrivat.setOnFocusChangeListener { _, hasFocus -> if(hasFocus){privatedialog()}}
         buAddEvent.setOnClickListener {
             // Handler code here.
             subButton()
@@ -82,7 +76,7 @@ class AddEventActivity : AppCompatActivity() {
             subButton()
         }
     }
-    fun setInformatioEvent(){
+    private fun setInformatioEvent(){
         val sharedPref = getSharedPreferences("eventData", Context.MODE_PRIVATE)
         tName.setText(sharedPref.getString("E_NAME",""))
         tPlace.setText(sharedPref.getString("E_PLACE",""))
@@ -95,6 +89,7 @@ class AddEventActivity : AppCompatActivity() {
         tPrivat.setText(sharedPref.getInt("E_PRIVATE",0).toString())
         println("THIS IS PUBLISHED ->>>>>>> " + sharedPref.getBoolean("E_ISPUBLISHED",false))
         sPublish.isChecked = sharedPref.getBoolean("E_ISPUBLISHED",false)
+        sArch.isChecked = sharedPref.getBoolean("E_ARCHIVED",false)
 
 
     }
@@ -102,7 +97,7 @@ class AddEventActivity : AppCompatActivity() {
         val items = arrayOf<CharSequence>("Публичное", "Пользовательское", "Приватное")
         AlertDialog.Builder(this)
                 .setTitle("Выберите приватность события")
-                .setItems(items) { dialog, which ->
+                .setItems(items) { _, which ->
                     when{
                         items[which] == "Публичное" ->{
                             tPrivat.setText("0")
@@ -116,14 +111,14 @@ class AddEventActivity : AppCompatActivity() {
                     }
                 }.create().show()
     }
-    fun toMainActivity(){
-        val MainActivityIntent = Intent(this, MainActivity::class.java)
+    private fun toMainActivity(){
+        val mainActivityIntent = Intent(this, MainActivity::class.java)
         // Start the new activity.
-        startActivity(MainActivityIntent)
+        startActivity(mainActivityIntent)
 
     }
 
-    fun subButton(){
+    private fun subButton(){
         when {
             !tName.text.isNotEmpty() -> {
                 tiName.error = "Введите название"
@@ -164,6 +159,8 @@ class AddEventActivity : AppCompatActivity() {
     }
     private fun addEvent(){
 //        val event:Event
+        val eispublished = sPublish.isChecked
+        val eisarhived = sArch.isChecked
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val utoken = sharedPref.getString("utoken","")
         val ename = tName.text.toString()
@@ -186,11 +183,11 @@ class AddEventActivity : AppCompatActivity() {
 
                 when (result) {
                     is Result.Failure -> {
-                        val ex = result.error.exception.message
+                        //val ex = result.error.exception.message
                     }
                     is Result.Success -> {
-                        val data = result.get()
-                        val jsonObj = JSONObject(String(data, Charsets.UTF_8))
+                        //val data = result.get()
+                        //val jsonObj = JSONObject(String(data, Charsets.UTF_8))
                         toMainActivity()
                     }
                 }
@@ -203,11 +200,10 @@ class AddEventActivity : AppCompatActivity() {
 
                 when (result) {
                     is Result.Failure -> {
-                        val ex = result.error.exception.message
+                        //val ex = result.error.exception.message
+                        //println(ex)
                     }
                     is Result.Success -> {
-                        val data = result.get()
-                        val jsonObj = JSONObject(String(data, Charsets.UTF_8))
                         toMainActivity()
                     }
                 }
@@ -215,12 +211,8 @@ class AddEventActivity : AppCompatActivity() {
 
         }
     }
-    data class Event(val idevents: Int, var ename: String,
-                     val eplace: String, val edate: String,
-                     val etime: String, val etimezone: String, val einfo: String,
-                     val epeople:Int, val epoints:Int, val eprivate:Int,
-                     val eisarhived:Boolean, val eispublished:Boolean)
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

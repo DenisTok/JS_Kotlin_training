@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.content.Context
 import android.content.Intent
@@ -15,13 +15,10 @@ import com.android.volley.toolbox.BasicNetwork
 import com.android.volley.toolbox.DiskBasedCache
 import com.android.volley.toolbox.HurlStack
 import com.android.volley.toolbox.StringRequest
-import app.volMP.u.rel.R
 import kotlinx.android.synthetic.main.activity_user_information.*
 import org.json.JSONObject
 import ru.tinkoff.decoro.MaskImpl
 import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser
-import ru.tinkoff.decoro.slots.Slot
-import ru.tinkoff.decoro.watchers.FormatWatcher
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher
 
 
@@ -103,13 +100,13 @@ class UserInformation : AppCompatActivity() {
     companion object {
         const val uId = ""
     }
-    fun getuIdInfo(resp:String):String{
+    private fun getuIdInfo(resp:String):String{
         val jsonObj = JSONObject(resp)
         return jsonObj.getString("idusersinfo")
     }
 
-    fun load_uInfo(){
-        val uIdInInfo = intent.getIntExtra(uId,0)
+    private fun load_uInfo(){
+        //val uIdInInfo = intent.getIntExtra(uId,0)
         val uSecName = tSecName.text.toString()
         val uName = tName.text.toString()
         val uMidName = tMidName.text.toString()
@@ -181,7 +178,7 @@ class UserInformation : AppCompatActivity() {
         // Start the new activity.
         startActivity(randomIntent)
     }
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

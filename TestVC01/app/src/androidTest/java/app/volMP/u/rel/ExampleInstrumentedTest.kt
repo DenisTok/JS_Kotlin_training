@@ -1,4 +1,4 @@
-package com.example.user.testvc01
+package app.volMP.u.rel
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
