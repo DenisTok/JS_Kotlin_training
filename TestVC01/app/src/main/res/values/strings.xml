@@ -21,4 +21,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Создатель</string>
     <string name="add_event">Добавить мероприятие</string>
+    <string name="Ivanov">Иванов</string>
+    <string name="Ivan">Иван</string>
 </resources>
