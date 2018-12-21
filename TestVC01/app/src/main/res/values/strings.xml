@@ -24,4 +24,7 @@
     <string name="Ivanov">Иванов</string>
     <string name="Ivan">Иван</string>
     <string name="Avatar">avatar</string>
+    <string name="_100">100</string>
+    <string name="_999">999</string>
+    <string name="_dot">.</string>
 </resources>

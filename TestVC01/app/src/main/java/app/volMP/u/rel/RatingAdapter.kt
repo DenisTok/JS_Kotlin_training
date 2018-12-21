@@ -33,9 +33,28 @@ class RatingAdapter(val rating: List<Rating>): RecyclerView.Adapter<RatingAdapte
         holder.view.tSecName?.text = rat.uisecname
         holder.view.tPoints?.text = rat.sum.toString()
 
+        holder.view.tWordPoints?.text = getNumEnding(rat.sum, arrayOf("балл","балла","баллов"))
+
         holder.rating = rat
     }
+    private fun getNumEnding(iNumber: Int, aEndings: Array<String>):String{
+        val numbers = iNumber % 100
+        return if (numbers in 11..19) {
+            aEndings[2]
+        } else {
+            val i = numbers % 10
+            when (i) {
+                1 -> {
+                    aEndings[0]
+                }
+                in 2..4 -> {
+                    aEndings[1]
+                }
+                else -> aEndings[2]
+            }
+        }
 
+    }
 
     class CustomViewHolder(val view: View, var rating: Rating? = null): RecyclerView.ViewHolder(view)
 

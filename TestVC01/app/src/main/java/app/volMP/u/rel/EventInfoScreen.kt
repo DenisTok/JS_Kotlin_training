@@ -54,7 +54,7 @@ class EventInfoScreen : AppCompatActivity() {
         tDate.text ="Дата: %s".format(intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_DATE))
         tInfo.text = intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_INFO)
         tPeople.text ="Нужно людей: %s".format(intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_PEOPLE))
-        tPoints.text =" %s баллов".format(intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_POINTS))
+        tPoints.text ="Баллов: %s ".format(intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_POINTS))
         tTime.text ="Время: %s".format(intent.getStringExtra(MainAdapter.CustomViewHolder.EVENT_TIME))
     }
     private fun onRefresh(){
