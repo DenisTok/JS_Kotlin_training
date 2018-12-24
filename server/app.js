@@ -28,19 +28,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/', index);
-app.use('/reg', reg);
-app.use('/reguinfo', reguinfo);
-app.use('/getevents', getevents);
-app.use('/login', login);
-app.use('/getuinfo', getuinfo);
-app.use('/logintoken', logintoken);
-app.use('/postevent', postevent);
-app.use('/regonevent', regonevent);
-app.use('/getusersonevent', getusersonevent);
-app.use('/verifuseronevent', verifuseronevent);
-app.use('/updateevent', updateevent);
-app.use('/updateuinfo', updateuinfo);
-app.use('/gettop', getTOP);
+app.use('/reg', reg); //Регистрация
+app.use('/reguinfo', reguinfo); //Регистрация пользовательских данных
+app.use('/getevents', getevents); //выводин список мероприятий
+app.use('/login', login); // Вход
+app.use('/getuinfo', getuinfo); //Вывод инф. о пользователе
+app.use('/logintoken', logintoken); //Логит по токену
+app.use('/postevent', postevent);//Запостить мероприятие
+app.use('/regonevent', regonevent); //Зергистрироваться на мероприятие
+app.use('/getusersonevent', getusersonevent); //Вывести пользователей на мероприятие
+app.use('/verifuseronevent', verifuseronevent); //Отметить пользователя на мероприятие
+app.use('/updateevent', updateevent); //обновить инф. на мероприятии
+app.use('/updateuinfo', updateuinfo); //Обновить информацию пользователя
+app.use('/gettop', getTOP); //Вывести топ
 
 //tests 3000 // no test: process.env.PORT
 app.listen(process.env.PORT, () => console.log('API started on PORT: ' + process.env.PORT));
