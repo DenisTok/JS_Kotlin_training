@@ -37,7 +37,7 @@ class MainAdapter(val events: List<Event>): RecyclerView.Adapter<MainAdapter.Cus
         holder.view.tTime?.text = "Время: %s".format(event.etime)
         holder.view.tWhere?.text = event.eplace
         holder.view.tPeople?.text = "Нужно людей: %s".format(event.epeople)
-        holder.view.tPoints?.text = " %s баллов".format(event.epoints)
+        holder.view.tPoints?.text = "Баллов: %s".format(event.epoints)
         holder.view.eventidtext?.text = event.idevents.toString()
         when{
             event.eisarhived -> {
