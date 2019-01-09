@@ -52,13 +52,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    fun isUserModer(){
+    private fun isUserModer(){
         val sharedPref = getSharedPreferences("loginData", Context.MODE_PRIVATE)
         val urole = sharedPref.getInt("urole",0)
         if (urole == 1){ fab.show() }
 
     }
-    fun toAddEventActivity(){
+    private fun toAddEventActivity(){
         // Create an Intent to start the UserInformation activity
         val AddEventActivityIntent = Intent(this, AddEventActivity::class.java)
         // Start the new activity.
