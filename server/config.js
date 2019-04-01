@@ -1,10 +1,10 @@
 let config = {};
 
 config.connectionString = {
-	host: 'ec2-174-129-18-98.compute-1.amazonaws.com',
+	host: '',
 	port: 5432,
-	database: 'd33a8s1e5o8sq',
-	user: 'abignnkoorzutx',
+	database: '',
+	user: '',
 	password: ''
 };
 
